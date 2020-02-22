@@ -1,0 +1,15 @@
+{
+  "name": "youtube-clone-mern",
+  "version": "1.0.0",
+  "description": "mongo express react node - youtube clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mefekaskaya",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.2"
+  }
+}
