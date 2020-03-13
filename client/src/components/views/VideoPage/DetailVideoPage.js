@@ -3,6 +3,7 @@ import { List, Avatar, Row, Col } from 'antd';
 import axios from 'axios';
 import SideVideo from './Sections/SideVideo';
 import Subscriber from './Sections/Subscriber';
+import Loading from '../../Loading';
 
 export default function DetailVideoPage(props) {
     
@@ -22,7 +23,10 @@ export default function DetailVideoPage(props) {
                 alert('Failed to get video');
             }
         })
-    })
+        
+
+    },[])
+
     if(video.writer){
           return (
       <Row>
@@ -33,7 +37,7 @@ export default function DetailVideoPage(props) {
           src={`http://localhost:5000/${video.filePath}`}
           controls
         />
-        <List.Item actions={[ <Subscriber userTo={video.writer._id} userFrom={localStorage.getItem('userId')} /> ]}>
+        <List.Item actions={[ <Subscriber userTo={video.writer._id} userFrom={localStorage.getItem('userId')} />]}>
           <List.Item.Meta
             avatar={<Avatar src={video.writer && video.writer.image} />}
             title={<a href="https://ant.design">{video.title}</a>}
@@ -50,8 +54,6 @@ export default function DetailVideoPage(props) {
     );
     }
     else{
-     return <div>
-          ...Loading
-      </div>
+     return <Loading />
     }
 }

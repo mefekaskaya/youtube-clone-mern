@@ -37,3 +37,9 @@ input.error {
   height: 5px;
   margin-top: -12px;
 }
+
+.loading {
+  text-transform: capitalize;
+  text-align: center;
+  margin-top: 3rem;
+}
