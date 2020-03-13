@@ -3,11 +3,12 @@ import { Route, Switch } from "react-router-dom";
 import Auth from "./auth";
 // pages for this product
 import Home from "./views/Home/Home.js";
-import LoginPage from "./views/LoginPage/LoginPage.js";
-import RegisterPage from "./views/RegisterPage/RegisterPage.js";
+import LoginPage from "./views/User/LoginPage.js";
+import RegisterPage from "./views/User/RegisterPage.js";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
-import UploadVideo from './views/UploadVideoPage/UploadVideoPage';
+import UploadVideo from './views/VideoPage/UploadVideoPage';
+import DetailVideo from './views/VideoPage/DetailVideoPage';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/video/upload" component={Auth(UploadVideo, true)} />
+          <Route exact path="/video/:videoId" component={Auth(DetailVideo, null)} />
         </Switch>
       </div>
       <Footer />
