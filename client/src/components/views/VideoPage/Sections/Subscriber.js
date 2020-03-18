@@ -7,11 +7,11 @@ export default function Subscriber(props) {
     const {userTo,userFrom}=props;
     const [subscribeNumber,setSubscribeNumber]=useState(0);
     const [subscribed,setSubscribed]=useState(false);
-    const subscribeVariables={userTo:userTo,userFrom:userFrom}
+    
     
     useEffect(() => {
-        
-        axios.post('/api/subscribe/subscribeNumber',subscribeVariables)
+        const subscribeNumberVariables={userTo:userTo,userFrom:userFrom}
+        axios.post('/api/subscribe/subscribeNumber',subscribeNumberVariables)
         .then(response=>{
             if(response.data.success){
               setSubscribeNumber(response.data.subscribeNumber)
@@ -21,7 +21,7 @@ export default function Subscriber(props) {
             }
         })
 
-        axios.post('/api/subscribe/subscribed',subscribeVariables)
+        axios.post('/api/subscribe/subscribed',subscribeNumberVariables)
         .then(response=>{
             if(response.data.success){
                 setSubscribed(response.data.subscribed);
@@ -32,6 +32,12 @@ export default function Subscriber(props) {
     }, [])
 
     const onSubscribe = () => {
+
+        let subscribeVariables = {
+            userTo : userTo,
+            userFrom : userFrom
+    }
+    
         if(subscribed){
             axios.post('/api/subscribe/unsubscribe',subscribeVariables)
             .then(response=>{
