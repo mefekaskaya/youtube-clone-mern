@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { Comment, Avatar, Button, Input } from 'antd';
 import axios from 'axios';
+import LikeDislikes from './LikeDislikes';
 const {TextArea} = Input;
 
 export default function SingleComment(props) {
@@ -38,7 +39,7 @@ export default function SingleComment(props) {
         })
     }
     
-    const action = [<span onClick={OpenReply} key="comment-basic-reply-to">Reply to</span>];
+    const action = [<LikeDislikes comment commentId={props.comment._id} userId={localStorage.getItem('userId')} />,<span onClick={OpenReply} key="comment-basic-reply-to">Reply to</span>];
     
     return (
         <div>
@@ -47,7 +48,8 @@ export default function SingleComment(props) {
                     {props.comment.content}
                 </p>
             }
-            ></Comment>
+            >
+            </Comment>
             {openReply && <form style={{display:'flex'}} onSubmit={onSubmit}>
                 <TextArea style={{width:'100%',borderRadius:'5px'}}
                 onChange={handleChange}

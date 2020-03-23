@@ -5,6 +5,7 @@ import SideVideo from './Sections/SideVideo';
 import Subscriber from './Sections/Subscriber';
 import Loading from '../../Loading';
 import Comment from './Sections/Comment';
+import LikeDislikes from './Sections/LikeDislikes';
 
 export default function DetailVideoPage(props) {
     
@@ -50,7 +51,9 @@ export default function DetailVideoPage(props) {
           src={`http://localhost:5000/${video.filePath}`}
           controls
         />
-        <List.Item actions={[ <Subscriber userTo={video.writer._id} userFrom={localStorage.getItem('userId')} />]}>
+        <List.Item actions={[<LikeDislikes video videoId={videoId} userId={localStorage.getItem('userId')} />,
+         <Subscriber userTo={video.writer._id} userFrom={localStorage.getItem('userId')} />
+      ]}>
           <List.Item.Meta
             avatar={<Avatar src={video.writer && video.writer.image} />}
             title={<a href="https://ant.design">{video.title}</a>}

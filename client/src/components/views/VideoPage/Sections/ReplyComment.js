@@ -10,13 +10,14 @@ export default function ReplyComment(props) {
         setChildCommentNumber(props.commentList.filter(comment=>{
             return comment.responseTo===props.parentCommentId
         }).length)
-    }, [props.commentList])
+    }, [props.commentList,props.parentCommentId])
 
     let renderReplyComment = (parentCommentId) => 
         
             props.commentList && props.commentList.map((comment,index)=>(
             <>
-            {comment.responseTo===parentCommentId &&
+            {
+            comment.responseTo===parentCommentId &&
                 <div style={{marginLeft:'1.2rem',width:'80%'}}>
                 <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />
                 <ReplyComment commentList={props.commentList} postId={props.postId} parentCommentId={comment._id} refreshFunction={props.refreshFunction} />
