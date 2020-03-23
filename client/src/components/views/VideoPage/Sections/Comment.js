@@ -10,7 +10,7 @@ export default function Comment(props) {
 
     // const user=useSelector(state=>state.user);
     const userId=localStorage.getItem('userId');
-    const [Comment,setComment] = useState("");
+    const [comment,setComment] = useState("");
 
     const handleChange = (e) => {
         setComment(e.currentTarget.value)
@@ -20,12 +20,12 @@ export default function Comment(props) {
         e.preventDefault();
 
         const variables={ 
-            content:Comment,
+            content:comment,
             writer: userId,
             postId: props.postId
          }
 
-        axios.post('/api/comment/SaveComment',variables)
+        axios.post('/api/comment/saveComment',variables)
         .then(response=>{
             if(response.data.success){
                 setComment("");
@@ -43,12 +43,13 @@ export default function Comment(props) {
             <hr />
             {/*  Comment Lists */}
             {props.commentList && props.commentList.map((comment,index)=>(
+                (!comment.responseTo && 
                 <>
-                    <div style={{marginLeft:'1.5rem',width:'80%'}}>
+                    
                     <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />
                     <ReplyComment commentList={props.commentList} postId={props.postId} parentCommentId={comment._id} refreshFunction={props.refreshFunction} />
-                    </div>
-                </>
+                    
+                </>)
                 
                 
             ))}
@@ -56,7 +57,7 @@ export default function Comment(props) {
             <form style={{display:'flex'}} onSubmit={onSubmit}>
                 <TextArea style={{width:'100%',borderRadius:'5px'}} 
                 onChange={handleChange} 
-                value={Comment} 
+                value={comment} 
                 placeholder="write some comments" />
                 <br />
                 <Button style={{width:'20%',heiight:'2rem'}} onClick={onSubmit}>Submit</Button>
