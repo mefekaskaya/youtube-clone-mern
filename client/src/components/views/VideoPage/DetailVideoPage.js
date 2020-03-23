@@ -4,28 +4,41 @@ import axios from 'axios';
 import SideVideo from './Sections/SideVideo';
 import Subscriber from './Sections/Subscriber';
 import Loading from '../../Loading';
+import Comment from './Sections/Comment';
 
 export default function DetailVideoPage(props) {
     
     const videoId = props.match.params.videoId;
     const [video,setVideo] = useState([]);
+    const [commentList,setCommentList] = useState([]);
 
     const videoVariable = {
         videoId : videoId
     }
 
     useEffect(() => {
-        axios.post('/api/video/getVideo',videoVariable)
-        .then(response => {
-            if(response.data.success){
-                setVideo(response.data.video);
-            }else{
-                alert('Failed to get video');
-            }
-        })
-        
+      axios.post('/api/video/getVideo', videoVariable)
+          .then(response => {
+              if (response.data.success) {
+                  setVideo(response.data.video)
+              } else {
+                  alert('Failed to get video Info')
+              }
+          })
 
-    },[])
+      axios.post('/api/comment/getComments', videoVariable)
+          .then(response => {
+              if (response.data.success) {
+                  setCommentList(response.data.comments)
+              } else {
+                  alert('Failed to get video Info')
+              }
+          })
+  }, [])
+
+    const updateComment = (newComment) => {
+      setCommentList(commentList.concat(newComment))
+    }
 
     if(video.writer){
           return (
@@ -45,6 +58,7 @@ export default function DetailVideoPage(props) {
           />
           <div></div>
         </List.Item>
+        <Comment commentList={commentList} postId={videoId} refreshFunction={updateComment} />
       </div>
       </Col>
       <Col lg={6} xs={24}>
